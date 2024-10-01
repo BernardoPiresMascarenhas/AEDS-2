@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main(String[] args) {
-        String path = "/tmp/pokemon.csv";
+        String path = "pokemon.csv";
         ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
 
         try {

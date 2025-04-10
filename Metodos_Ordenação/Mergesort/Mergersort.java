@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 class Megersort{
+  
    public static void main(String[] args){
       Scanner sc = new Scanner(System.in);
       
@@ -19,9 +20,11 @@ class Megersort{
       
       sc.close();
    }
+   
    public static void dados(int n, int[] array){
       megersort(0, n - 1, array);
    }
+   
    public static void megersort(int esq, int dir, int[] array){
       if(esq < dir){
          int meio = (esq + dir) / 2;
@@ -30,6 +33,7 @@ class Megersort{
          intercalar(esq, meio, dir, array);
       }
    }
+   
    public static void intercalar(int esq, int meio, int dir, int[] array){
       int tam_esq = (meio + 1) - esq;
       int tam_dir = dir - meio;

@@ -1,36 +1,29 @@
 import java.util.Scanner;
 
-class Main{
+class Main {
+    public static String inverter(String txt) {
+        String invertida = "";
 
-   public static void main(String[] args){
-      Scanner sc = new Scanner(System.in);
-   
-      boolean fim = true;
-      String palavra;
+        for (int i = txt.length() - 1; i >= 0; i--) {
+            invertida += txt.charAt(i);
+        }
 
-      do{
-         palavra = sc.nextLine();
+        return invertida;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-         if(palavra.equals("FIM")){
-            fim = false;
-         }  
-         else{
+        String txt = sc.nextLine();
+        System.out.println(inverter(txt));
+
+        while (!txt.equals("FIM")) {
+            txt = sc.nextLine();
             
-            String invertida = inverter_String(palavra);
+            if (!txt.equals("FIM")) {
+                System.out.println(inverter(txt));
+            }
+        }
 
-            System.out.println(invertida);
-         }
-       
-      }while(fim);
-      
-      sc.close();
-   }
-
-   public static String inverter_String(String palavra){
-      
-      StringBuilder newPalavra = new StringBuilder(palavra);
-      
-      return newPalavra.reverse().toString();
-
-   }
+        sc.close();
+    }
 }

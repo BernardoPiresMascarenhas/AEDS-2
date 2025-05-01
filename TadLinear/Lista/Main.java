@@ -17,6 +17,14 @@ class Main{
 
       lista.mostrar();
 
+      int x1 = lista.removerInicio();
+      int x2 = lista.removerFim();
+      int x3 = lista.remover(2);
+
+      System.out.println("Elementos removidos:" + x1 + ", " + x2 + ", " + x3);
+
+      lista.mostrar();
+
       sc.close();
    }   
 }
@@ -99,6 +107,7 @@ class Lista{
          array[i] = array[i + 1];
       }
 
+      return resp;
    }
 
    int removerFim(){
@@ -111,7 +120,7 @@ class Lista{
    }
 
    int remover(int pos){
-      if(n == 0 && pos (< 0 || pos > n)){
+      if(n == 0 && (pos < 0 || pos > n)){
          System.err.println();
          return n;
       }

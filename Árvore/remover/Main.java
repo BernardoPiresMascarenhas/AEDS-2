@@ -21,7 +21,10 @@ class Main {
 
       while(!placa.equals("FIM_REMOCAO")){
          arvore.remover(placa);
+         placa = sc.nextLine();
       }
+
+      arvore.caminhar();
 
       sc.close();
    }
@@ -115,5 +118,17 @@ class Arvore{
          j.dir = maiorEsq(i, j.dir);
       }
       return j;
+   }
+
+   void caminhar(){
+      caminhar(raiz);
+   }
+
+   void caminhar(No i){
+      if(i != null){
+         caminhar(i.esq);
+         i.carro.imprimir();
+         caminhar(i.dir);
+      }
    }
 }

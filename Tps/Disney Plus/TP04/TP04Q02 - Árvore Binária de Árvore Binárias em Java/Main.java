@@ -300,45 +300,91 @@ class Show{
 }
 
 class No{
-    int chave;
-    Arvore2 elemento;
+    int elemento;
+    No2 raiz;
     No dir,esq;
 
     public No(){
-        this.elemento = null;
+        this.elemento = 0;
         this.dir = null;
         this.esq = null;
     }
 
     public No(int x){
-        this.chave = x;
-        this.elemento = new Arvore2();
-        this.dir = null;
-        this.esq = null;
-    }
-
-}
-
-class No2{
-    Show elemento;
-    No2 dir,esq;
-
-    public No2(){
-        this.elemento = null;
-        this.dir = null;
-        this.esq = null;
-    }
-    public No2(Show x){
         this.elemento = x;
         this.dir = null;
         this.esq = null;
     }
 }
 
+class No2 {
+    String elemento;
+    No2 esq,dir;
+    
+    No2(){
+        this.elemento = null;
+        this.dir = null;
+        this.esq = null;  
+    }
+
+    No2(String x){
+        this.elemento = x;
+        this.dir = null;
+        this.esq = null;  
+    }
+
+}
+
 class Arvore{
     No raiz;
     public Arvore(){
         this.raiz = null;
+    }
+
+    public void construir(){
+
+        inserir(7);
+        inserir(3);
+        inserir(11);
+        inserir(1);
+        inserir(5);
+        inserir(9);
+        inserir(13);
+        inserir(0);
+        inserir(2);
+        inserir(4);
+        inserir(6);
+        inserir(8);
+        inserir(10);
+        inserir(12);
+        inserir(14);
+
+    }
+
+    public void inserir(int x){
+
+        raiz = inserir(x, raiz);
+
+    }
+
+    private No inserir(int x, No i){
+
+        if(i == null){
+
+            i = new No(x);
+
+        }else if(x < i.elemento){
+
+            i.esq = inserir(x, i.esq);
+
+        }else if(x > i.elemento){
+
+            i.dir = inserir(x, i.dir);
+
+        }
+
+        return i;
+
     }
 
     public void inserir(Show i){
@@ -348,127 +394,97 @@ class Arvore{
     private No inserir(Show i, No n){
 
         if(n == null){
-            n = new No(i.getRelease_year()%15);
-        }else if(comparando(n.elemento, i) > 0){
+            n = new No(i.getRelease_year() % 15);
+            n.raiz = new No2(i.getTitle());
+        }else if(i.getRelease_year() % 15 < n.elemento){
+
             n.esq = inserir(i, n.esq);
-        }else if(comparando(n.elemento, i) < 0){
+
+        }else if(i.getRelease_year() % 15 > n.elemento){
+
             n.dir = inserir(i, n.dir);
+
+        }else if(i.getRelease_year() % 15 == n.elemento){
+
+            inserirNo2(i.getTitle(), n);
+
         }
 
         return n;
     }
-
-    public void pesquisar(String i){
-        System.out.printf("=>raiz ");
-        pesquisar(i, raiz);
-    }
-    private void pesquisar(String i,No n){
-        if(n == null){
-            System.out.printf("NAO\n");
-        }else if(comparando(n.chave, i) > 0){
-            System.out.printf("esq ");
-            pesquisar(i, n.esq);
-        }else if(comparando(n.chave, i) < 0){
-            System.out.printf("dir ");
-            pesquisar(i, n.dir);
-        }else{
-            System.out.printf("SIM\n");
-        }
-    }
-
-    private int comparando(Show n, String i){
-        int result;
-        if(){
-            result = 1;
-        }else if(n.getTitle().compareTo(i) < 0){
-            result = -1;
-        }else{
-            result = 0;
-        }
-
-        return result;
-    }
-
-    private int comparando(Show n, Show i){
-        int result;
-        if(n.getTitle().compareTo(i.getTitle()) > 0){
-            result = 1;
-        }else if(n.getTitle().compareTo(i.getTitle()) < 0){
-            result = -1;
-        }else{
-            result = 0;
-        }
-
-        return result;
-    }
-}
-class Arvore2{
-    No2 raiz;
     
-    Arvore2(){
-        this.raiz = new No2();
+    private void inserirNo2(String nome, No i){
+
+        i.raiz = inserirNo2(nome, i.raiz);
+
     }
 
-    public void inserir(Show i){
-        this.raiz = inserir(i,raiz);
-    }
+    private No2 inserirNo2(String x, No2 i){
 
-    private No2 inserir(Show i, No2 n){
+        if(i == null){
 
-        if(n == null){
-            n = new No2(i);
-        }else if(comparando(n.elemento, i) > 0){
-            n.esq = inserir(i, n.esq);
-        }else if(comparando(n.elemento, i) < 0){
-            n.dir = inserir(i, n.dir);
+            i = new No2(x);
+
+        }else if(x.compareTo(i.elemento) < 0){
+
+            i.esq = inserirNo2(x, i.esq);
+
+        }else if(x.compareTo(i.elemento) > 0){
+
+            i.dir = inserirNo2(x, i.dir);
+
         }
 
-        return n;
+        return i;
+
     }
 
-    public void pesquisar(String i){
-        System.out.printf("=>raiz ");
-        pesquisar(i, raiz);
+    public boolean caminharPre(String x) {
+        System.out.print("raiz ");
+        return caminharPre(x, raiz);
     }
-    private void pesquisar(String i,No2 n){
-        if(n == null){
-            System.out.printf("NAO\n");
-        }else if(comparando(n.elemento, i) > 0){
-            System.out.printf("esq ");
-            pesquisar(i, n.esq);
-        }else if(comparando(n.elemento, i) < 0){
-            System.out.printf("dir ");
-            pesquisar(i, n.dir);
-        }else{
-            System.out.printf("SIM\n");
+
+    private boolean caminharPre(String x, No i) {
+        if (i == null) {
+            return false;
+        }
+
+        
+        if (pesquisar(x, i.raiz)) {
+            return true;
+        }
+
+        
+        System.out.print("ESQ ");
+        if (caminharPre(x, i.esq)) {
+            return true;
+        }
+
+       
+        System.out.print("DIR ");
+        return caminharPre(x, i.dir);
+    }
+
+    private boolean pesquisar(String x, No2 i) {
+        if (i == null) {
+            return false;
+        }
+
+        if (x.equals(i.elemento)) {
+            return true;
+        }
+
+        if (x.compareTo(i.elemento) < 0) {
+            System.out.print("esq ");
+            return pesquisar(x, i.esq);
+        } else {
+            System.out.print("dir ");
+            return pesquisar(x, i.dir);
         }
     }
 
-    private int comparando(Show n, String i){
-        int result;
-        if(n.getTitle().compareTo(i) > 0){
-            result = 1;
-        }else if(n.getTitle().compareTo(i) < 0){
-            result = -1;
-        }else{
-            result = 0;
-        }
+    
 
-        return result;
-    }
-
-    private int comparando(Show n, Show i){
-        int result;
-        if(n.getTitle().compareTo(i.getTitle()) > 0){
-            result = 1;
-        }else if(n.getTitle().compareTo(i.getTitle()) < 0){
-            result = -1;
-        }else{
-            result = 0;
-        }
-
-        return result;
-    }
 }
 
 public class Main{
@@ -480,6 +496,7 @@ public class Main{
         Show.leiaShow(show);
         String linha = sc.nextLine();
         Arvore arvore = new Arvore();
+        arvore.construir();
         while (!linha.equals("FIM")) {
             int index = Integer.parseInt(linha.substring(1))-1;
             arvore.inserir(show[index]);
@@ -488,9 +505,20 @@ public class Main{
         linha = sc.nextLine();
 
         while (!linha.equals("FIM")) {
-            arvore.pesquisar(linha);
+            if(arvore.caminharPre(linha)){
+
+                System.out.println(" SIM");
+
+            }else{
+
+                System.out.println(" NAO");
+
+            }
+
             linha = sc.nextLine();
         }
     }
+
+    
 
 }
